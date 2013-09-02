@@ -20,57 +20,74 @@ var btn_h = 90;
 var MenuLayer = cc.Layer.extend({
     //balls:[],
     init:function () {
-        cc.log("menuLayer init");
         this.initData();
     },
     setDisplay:function(visble){
         this.setVisible(visble);
     },
     initData:function(){
-        cc.log("play");
-
         var play = this.getBtn(s_button_play, s_button_play_hot, BTN_PLAY);
-        play.setPosition(cc.p(0, btn_h*3));
+        play.setPosition(cc.p(0, btn_h*2));
         var brag = this.getBtn(s_button_brag, s_button_brag_hot, BTN_BRAG);
-        brag.setPosition(0, btn_h*2);
+        brag.setPosition(cc.p(0, btn_h));
         var challenge = this.getBtn(s_button_challenge, s_button_challenge_hot, BTN_CHALLENGE);
-        challenge.setPosition(0, btn_h);
-        var store = this.getBtn(s_button_store, s_button_store_hot, BTN_STORE);
-        store.setPosition(0, 0);
-
+        challenge.setPosition(cc.p(0, 0));
+        
         var size = play.getContentSize();
-
-        this.menu = cc.Menu.create(play, brag, challenge, store);
+        this.menu = cc.Menu.create(play, brag, challenge);
         this.addChild(this.menu);
         this.menu.setPosition(cc.p(size.width/2, size.height/2));
-        //cc.log(menu.getPosition());
-        cc.log("menuLayer init end.");
     },
     setMenuTouchEnable:function(enable){
         if(this.menu != null){
             this.menu.setTouchEnabled(enable);
         }
     },
+    fbCallback:function(response){
+    },
+    requestCallback:function(response){
+    },
     onClick:function(node){
         var tag = node.getTag();
         switch (tag){
             case BTN_PLAY:{
-                //显示play界面
+                //display the interface of game.
+                //need one friend's headimg.
                 stManager.changeState(ST_PLAY);
             }
                 break;
             case BTN_BRAG:{
                 //BRAG
-                cc.log("CLICK BRAG!------");
+                if(gLoginStatus){
+                    //Brag!Post to Your Wall.(to you friends.)
+                    if (gScore) {
+                        FB.ui({ method: 'feed',
+                            caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
+                            picture: 'http://www.friendsmash.com/images/logo_large.jpg',
+                            name: 'Checkout my Friend Smash greatness!'
+                        }, this.fbCallback);
+                    }
+                }
+                else{
+                    //not login.
+                    cc.log("not login");
+                }
             }
                 break;
             case BTN_CHALLENGE:{
                 //挑战，同上
-                cc.log("CLICK CHALLENGE!------");
+                if(gLoginStatus){
+                    //Play Friend Smash with me!(all friends.)
+                    FB.ui({method: 'apprequests', message: 'My Great Request'}, this.requestCallback);
+                }
+                else{
+                    //not login.
+                    cc.log("not login");
+                }
             }
                 break;
             case BTN_STORE:{
-                //
+                //go store
                 cc.log("CLICK STORE!------");
             }
                 break;
@@ -82,11 +99,19 @@ var MenuLayer = cc.Layer.extend({
 
         var normal_sp = cc.Sprite.create(normal);
         var down_sp = cc.Sprite.create(down);
-        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this)
+        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this);
         btn.setTag(tag);
         return btn;
     }
 });
+
+var getOneFriendId = function(){
+    var info = null;
+    if(gAllFriends.length > 0){
+        info = gAllFriends[Math.random()*( gAllFriends.length) | 0];
+    }
+    return info;
+};
 
 var LifeLayer = cc.Layer.extend({
     life:null,
@@ -113,7 +138,7 @@ var LifeLayer = cc.Layer.extend({
         return this.life
     },
     loseLife:function(num){
-        //默认为1
+        //default 1
         if(num == null)
             num = 1;
 
@@ -144,11 +169,88 @@ var LifeLayer = cc.Layer.extend({
     }
 });
 
+var gAllFriends = [];
 var HeadLayer = cc.Layer.extend({
     init:function(){
         this.lbName = cc.LabelBMFont.create("Welcome, player.", s_Arial_fnt);
         this.lbName.setAnchorPoint(cc.p(0, 0));
         this.addChild(this.lbName);
+        this.lbName.setPosition(cc.p(0, 50));
+
+        this.login = this.getBtn(s_login0, s_login1, 1);
+        this.logout = this.getBtn(s_logout0, s_logout1, 2);
+        this.menu = cc.Menu.create(this.login, this.logout);
+        this.addChild(this.menu);
+        this.login.setPosition(cc.p(165, 26));
+        this.logout.setPosition(cc.p(165, 26));
+        this.menu.setPosition(cc.p(0,0));
+        this.logout.setVisible(false);
+    },
+    onClick:function(sender){
+        var tag = sender.getTag();
+        switch(tag){
+            case 1:{
+                //facebook login.
+                cc.log("-------log in-----");
+                FB.login(this.loginCallback.bind(this));
+            }
+                break;
+            case 2:{
+                cc.log("-------log out-----");
+                FB.logout(this.logoutCallback.bind(this));
+            }
+                break;
+        }
+    },
+    loginCallback:function(response){
+        if(response.authResponse && response.status=='connected'){
+            gFriendData = [];
+            FB.api("/me",this.meInformationCallback.bind(this));
+            FB.api("/me/friends",this.getFriendsCallback.bind(this));
+            gLoginStatus = true;
+            this.setBtnState(false);
+            
+            g_useFacebook = true;
+        }
+    },
+    getFriendsCallback:function(response){
+        if(response && response.data){
+            gAllFriends = response.data;
+        }
+    },
+    meInformationCallback:function(response){
+        if(response && response.error)
+        {
+            cc.log(response.error);
+            return;
+        }
+        var name = response.first_name;
+        this.setName(name);
+        //get user's img and set.
+        FB.api('/me/picture', {"width":"90","height":"90"}, this.myImgCallback.bind(this));
+    },
+    myImgCallback:function(response){
+        if(response){
+            var url = response.data.url;
+            LoadUrlImage.addImageAsync(url, this.loadImg.bind(this));
+        }
+    },
+    loadImg:function(response){
+    	if(response){
+    		this.setHeadImg(response);
+    	}
+    },
+    logoutCallback:function(response){
+        if(response.status=='unknown'){
+            this.setName("player");
+            gLoginStatus = false;
+            gFriendData = [];
+            this.setBtnState(true);
+        }
+    },
+    setBtnState:function(st){
+        this.login.setVisible(st);
+        this.logout.setVisible(false);
     },
     setName:function(name){
         this.lbName.setString("Welcome, "+name);
@@ -156,6 +258,21 @@ var HeadLayer = cc.Layer.extend({
     setHeadImg:function(src){
         this.headImg = cc.Sprite.create(src);
         this.addChild(this.headImg);
+        this.headImg.setPosition(cc.p(50, 0));
+    },
+    setHeadImgSp:function(sp){
+        this.addChild(sp);
+        sp.setPosition(cc.p(50, 0));
+    },
+    getBtn:function(normal, down, tag){
+        if(down == null)
+            down = normal;
+
+        var normal_sp = cc.Sprite.create(normal);
+        var down_sp = cc.Sprite.create(down);
+        var btn = cc.MenuItemSprite.create(normal_sp, down_sp, this.onClick, this)
+        btn.setTag(tag);
+        return btn;
     }
 });
 
@@ -167,9 +284,7 @@ var ResultLayer = cc.Layer.extend({
         if(this.bInit)
             return;
 
-        //count_int ++;
-        //cc.log("count_int", count_int);
-        //灰色layer
+        //add a gray layer
         var color = cc.c4b(123,123,123,123);
         var grayLayer = cc.LayerColor.create(color, winSize.width, winSize.height);
         //grayLayer.setAnchorPoint(cc.p(0,0));
@@ -213,37 +328,13 @@ var ResultLayer = cc.Layer.extend({
             s_close_button,
             this.onClick,this);
         this.closeItem.setPosition(cc.p(size.width - 30, size.height-30));
-        cc.log(this.closeItem);
         this.menu = cc.Menu.create(this.closeItem);
-        //this.menu.setHandlerPriority(-129);
         this.addChild(this.menu);
         this.menu.setPosition(cc.p(0, 0));
-
-        //this.bInit = true;
     },
     onClick:function(sender){
-        cc.log("result click close.");
         _menuLayer.disResult(false);
     },
-//    onEnter:function () {
-//        if(sys.platform == "browser"){
-//            cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, -128, true);
-//        }
-//        else
-//            cc.registerTargettedDelegate(1,true,this);
-//        this._super();
-//    },
-//    onTouchBegan:function(sender){
-//        return true;
-//    },
-//    onExit:function () {
-//        if(sys.platform == "browser")
-//            cc.Director.getInstance().getTouchDispatcher().removeDelegate(this);
-//        else
-//            cc.unregisterTouchDelegate(this);
-//
-//        this._super();
-//    },
     setScore:function(num){
         this.lbScore.setString(this.getString(num, 0));
     },
@@ -264,107 +355,106 @@ var ResultLayer = cc.Layer.extend({
                 str = "You smashed " + num + " friends";
                 break;
         }
-        cc.log(str);
         return str;
     }
 });
 
 
 //cc.ParticleExplosionQ = cc.ParticleSystemQuad.extend(/** @lends cc.ParticleExplosion# */{
-//     /**
-//      * initialize an explosion particle system
-//      * @return {Boolean}
-//      */
-//     init:function () {
-//         //return this.initWithTotalParticles(700);
-//         return this.initWithTotalParticles((cc.renderContextType === cc.WEBGL) ? 700 : 300);
-//     },
-// 
-//     /**
-//      * initialize an explosion particle system with number Of Particles
-//      * @param {Number} numberOfParticles
-//      * @return {Boolean}
-//      */
-//     initWithTotalParticles:function (numberOfParticles) {
-//         if (cc.ParticleSystemQuad.prototype.initWithTotalParticles.call(this, numberOfParticles)) {
-//             // duration
-//             this._duration = 0.1;
-// 
-//             this._emitterMode = cc.PARTICLE_MODE_GRAVITY;
-// 
-//             // Gravity Mode: gravity
-//             this.modeA.gravity = cc.p(0, 0);
-// 
-//             // Gravity Mode: speed of particles
-//             this.modeA.speed = 170;
-//             this.modeA.speedVar = 140;
-// 
-//             // Gravity Mode: radial
-//             this.modeA.radialAccel = 0;
-//             this.modeA.radialAccelVar = 0;
-// 
-//             // Gravity Mode: tagential
-//             this.modeA.tangentialAccel = 0;
-//             this.modeA.tangentialAccelVar = 0;
-// 
-//             // angle
-//             this._angle = 90;
-//             this._angleVar = 360;
-// 
-//             // emitter position
-//             var winSize = cc.Director.getInstance().getWinSize();
-//             this.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-//             this._posVar = cc.PointZero();
-// 
-//             // life of particles
-//             this._life = 0.30;
-//             this._lifeVar = 0.21;
-// 
-//             // size, in pixels
-//             this._startSize = 15.0;
-//             this._startSizeVar = 10.0;
-//             this._endSize = cc.PARTICLE_START_SIZE_EQUAL_TO_END_SIZE;
-// 
-//             // emits per second
-//             this._emissionRate = this._totalParticles / this._duration;
-// 
-//             // color of particles
-//             this._startColor.r = 0.7;
-//             this._startColor.g = 0.1;
-//             this._startColor.b = 0.2;
-//             this._startColor.a = 1.0;
-//             this._startColorVar.r = 0.5;
-//             this._startColorVar.g = 0.5;
-//             this._startColorVar.b = 0.5;
-//             this._startColorVar.a = 0.0;
-//             this._endColor.r = 0.5;
-//             this._endColor.g = 0.5;
-//             this._endColor.b = 0.5;
-//             this._endColor.a = 0.0;
-//             this._endColorVar.r = 0.5;
-//             this._endColorVar.g = 0.5;
-//             this._endColorVar.b = 0.5;
-//             this._endColorVar.a = 0.0;
-// 
-//             // additive
-//             this.setBlendAdditive(false);
-//             return true;
-//         }
-//         return false;
-//     }
-// });
-// 
-// /**
-//  * Create an explosion particle system
-//  * @return {cc.ParticleExplosion}
-//  *
-//  * @example
-//  * var emitter = cc.ParticleExplosion.create();
-//  */
-// cc.ParticleExplosionQ.create = function () {
-//     var ret = new cc.ParticleExplosionQ();
-//     if (ret.init()) {
-//         return ret;
-//     }
-//     return null;
-// };
+//    /**
+//     * initialize an explosion particle system
+//     * @return {Boolean}
+//     */
+//    init:function () {
+//        //return this.initWithTotalParticles(700);
+//        return this.initWithTotalParticles((cc.renderContextType === cc.WEBGL) ? 700 : 300);
+//    },
+//
+//    /**
+//     * initialize an explosion particle system with number Of Particles
+//     * @param {Number} numberOfParticles
+//     * @return {Boolean}
+//     */
+//    initWithTotalParticles:function (numberOfParticles) {
+//        if (cc.ParticleSystemQuad.prototype.initWithTotalParticles.call(this, numberOfParticles)) {
+//            // duration
+//            this._duration = 0.1;
+//
+//            this._emitterMode = cc.PARTICLE_MODE_GRAVITY;
+//
+//            // Gravity Mode: gravity
+//            this.modeA.gravity = cc.p(0, 0);
+//
+//            // Gravity Mode: speed of particles
+//            this.modeA.speed = 170;
+//            this.modeA.speedVar = 140;
+//
+//            // Gravity Mode: radial
+//            this.modeA.radialAccel = 0;
+//            this.modeA.radialAccelVar = 0;
+//
+//            // Gravity Mode: tagential
+//            this.modeA.tangentialAccel = 0;
+//            this.modeA.tangentialAccelVar = 0;
+//
+//            // angle
+//            this._angle = 90;
+//            this._angleVar = 360;
+//
+//            // emitter position
+//            var winSize = cc.Director.getInstance().getWinSize();
+//            this.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+//            this._posVar = cc.PointZero();
+//
+//            // life of particles
+//            this._life = 0.30;
+//            this._lifeVar = 0.21;
+//
+//            // size, in pixels
+//            this._startSize = 15.0;
+//            this._startSizeVar = 10.0;
+//            this._endSize = cc.PARTICLE_START_SIZE_EQUAL_TO_END_SIZE;
+//
+//            // emits per second
+//            this._emissionRate = this._totalParticles / this._duration;
+//
+//            // color of particles
+//            this._startColor.r = 0.7;
+//            this._startColor.g = 0.1;
+//            this._startColor.b = 0.2;
+//            this._startColor.a = 1.0;
+//            this._startColorVar.r = 0.5;
+//            this._startColorVar.g = 0.5;
+//            this._startColorVar.b = 0.5;
+//            this._startColorVar.a = 0.0;
+//            this._endColor.r = 0.5;
+//            this._endColor.g = 0.5;
+//            this._endColor.b = 0.5;
+//            this._endColor.a = 0.0;
+//            this._endColorVar.r = 0.5;
+//            this._endColorVar.g = 0.5;
+//            this._endColorVar.b = 0.5;
+//            this._endColorVar.a = 0.0;
+//
+//            // additive
+//            this.setBlendAdditive(false);
+//            return true;
+//        }
+//        return false;
+//    }
+//});
+
+/**
+ * Create an explosion particle system
+ * @return {cc.ParticleExplosion}
+ *
+ * @example
+ * var emitter = cc.ParticleExplosion.create();
+ */
+//cc.ParticleExplosionQ.create = function () {
+//    var ret = new cc.ParticleExplosionQ();
+//    if (ret.init()) {
+//        return ret;
+//    }
+//    return null;
+//};

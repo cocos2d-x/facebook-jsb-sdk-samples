@@ -31,6 +31,8 @@ require("jsb.js");
 var appFiles = [
     'src/resource.js',
     'src/uiconst.js',
+    'src/facebook-connect-plugin.js',
+    'src/LoadImage.js',
     'src/littleLayer.js',
     'src/gameLayer.js',
     'src/myApp.js'

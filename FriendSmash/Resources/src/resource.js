@@ -84,6 +84,10 @@ var s_sparkleparticle = "res/Art/sparkleparticle.png";
 var s_store64 = "res/Art/store64.png";
 var s_topbar_repeater = "res/Art/topbar_repeater.jpg";
 var s_welcome_panel = "res/Art/welcome_panel.png";
+var s_login0 = "res/login0.png";
+var s_login1 = "res/login1.png";
+var s_logout0 = "res/logout0.png";
+var s_logout1 = "res/logout1.png";
 
 var g_ressources = [
     //image
@@ -173,6 +177,10 @@ var g_ressources = [
     {src:s_store64},
     {src:s_topbar_repeater},
     {src:s_welcome_panel},
+    {src:s_login0},
+    {src:s_login1},
+    {src:s_logout0},
+    {src:s_logout1},
     //plist
 
     //fnt
