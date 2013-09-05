@@ -25,16 +25,8 @@ var showEffect = 0;
 
 var GameLayer = cc.Layer.extend({
     init:function(){
-        cc.log("gamelayer init.");
-        var sp = cc.Sprite.create("res/ball.png");
-        this.addChild(sp);
-        sp.setPosition(cc.p(100, 100));
-
-        //this.scheduleUpdate();
         this.setTouchEnabled(true);
         this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
-
-        //this.startGame(true);
     },
     initData:function(){
         gDoingGameover = false;
@@ -44,10 +36,28 @@ var GameLayer = cc.Layer.extend({
         gCoins = 0;
         timer = 0;
         tSpace = 100;
-        gFriendID = getRand(10);
-        friendName = arrName[gFriendID];
+        gFriendInfo = getOneFriendId();
+        if(gFriendInfo){
+            gFriendID = gFriendInfo.id;
+            friendName = gFriendInfo.name;
+            FB.api("/"+gFriendID+"/picture", {"width":"90","height":"90"}, this.friendInfoCallback.bind(this));
+        }
+        else{
+            gFriendID = getRand(10);
+            friendName = arrName[gFriendID];
+        }
         this.getParent().setTitle(friendName);
-        g_useFacebook = false;
+    },
+    friendInfoCallback:function(response){
+        if(response){
+            var url = response.data.url;
+            LoadUrlImage.addImageAsync(url, this.loadImg.bind(this));
+        }
+    },
+    loadImg:function(response){
+        if(response){
+            this.friendImg = response;
+        }
     },
     startGame:function(start){
         if(start)
@@ -75,7 +85,6 @@ var GameLayer = cc.Layer.extend({
         }
 
         var effect = new plusSpr();
-//        cc.log("showEffect: ", showEffect);
         switch (showEffect){
             case TYPE_ADD_1:
                 effect.init1(TYPE_ADD_1);
@@ -99,12 +108,10 @@ var GameLayer = cc.Layer.extend({
         }
         if(effect != null)
         {
-            //effect.setPosition(cc.p(150, 200));
             effect.spawn();
             effect.setPosition(pClick);
             this.addChild(effect);
             arrEffects.push(effect);
-            //cc.log("showEffect: ------", showEffect , pClick);
         }
     },
     addEffect:function(num){
@@ -135,17 +142,6 @@ var GameLayer = cc.Layer.extend({
 //            }
 //        }
 //    },
-    logTH:function(){
-        //cc.log("--------log begin--------");
-//        cc.log("gDoingGameover: ", gDoingGameover);
-//        cc.log("gSpawnTimer: ", gSpawnTimer);
-//        cc.log("gTickSpeed: ", gTickSpeed);
-//        cc.log("gScore: ", gScore);
-//        cc.log("gFriendID: ", gFriendID);
-//        cc.log("g_useFacebook: ", g_useFacebook);
-        //cc.log("winSize.height: ", winSize.height);
-        //cc.log("--------log end--------");
-    },
     update:function(dt){
         if(timer%tSpace==0)
         {
@@ -193,7 +189,6 @@ var GameLayer = cc.Layer.extend({
         timer ++;
     },
     endGame:function(){
-        cc.log("endGame.");
         this.unscheduleUpdate();
         this.removeAllChildren();
         gEntities = [];
@@ -203,12 +198,19 @@ var GameLayer = cc.Layer.extend({
     },
     spawnEntity:function(forceFriendsOnly) {
         var entityType = forceFriendsOnly ? 0 : getRandom(0, 1);
-        //cc.log("entityType: ", entityType);
         var newEntity = new entity();
 
         if (entityType < 0.6 && gFriendID != null) {
             if (g_useFacebook) {
-                newEntity.init1(gFriendID, true);
+            	if(this.friendImg)
+                	newEntity.init1(this.friendImg, true);
+                else{
+            		var nCelebToSpawn = Math.floor(getRandom(0, 10));
+            		while (nCelebToSpawn == gFriendID) {
+                		nCelebToSpawn = Math.floor(getRandom(0, 10));
+            		}
+                	newEntity.init1('res/Art/nonfriend_' + (nCelebToSpawn+1) + '.png', false);
+                }
             } else {
                 newEntity.init1('res/Art/nonfriend_' + (gFriendID+1) + '.png', true);
             }
@@ -295,7 +297,6 @@ var particle = cc.Sprite.extend({
 
 var entity = cc.Sprite.extend ({
     init1:function(src, isFriend) {
-        //this.initWithFile(src);
         this.init(src);
         this.positionX = 0;
         this.positionY = 0;
@@ -305,8 +306,6 @@ var entity = cc.Sprite.extend ({
         this.rotationAngle = 0;
         this.isFriend = isFriend;
         this.image = src;
-        //this.image.setPosition(cc.p(getRand(winSize.width), 0));
-        //this.addChild(this.image);
         this.isCoin = false;
         this.middleTime = 0;
         this.tickY = 0;
@@ -323,22 +322,14 @@ var entity = cc.Sprite.extend ({
 
         this.rotationalVelocity = getRandom(-this.rot, this.rot);
 
-//        var distanceToMiddle = getRandom(220, 260) - this.positionX;
-//        this.velocityX = distanceToMiddle * getRandom(0.01, 0.015);
-//        this.velocityY = getRandom(10, 13);
         var distanceToMiddle = getRandom(220, 260) - this.positionX;
         this.velocityX = distanceToMiddle * getRandom(0.01, 0.015);
         this.velocityY = getRandom(9, 12);
 
         this.middleTime = distanceToMiddle/this.velocityX;
         this.tickY = -this.velocityY / this.middleTime;
-
-        //cc.log("position:", this.positionX, this.positionY);
-        //cc.log("velocity: ", this.velocityX, this.velocityY);
     },
     tick:function() {
-        //this.image.setScaleX = this.image.width;
-        //this.image.setScaleY = this.image.height;
         this.positionX += this.velocityX;
         this.positionY += this.velocityY;
         this.setPosition(this.positionX, this.positionY);
@@ -353,32 +344,6 @@ var entity = cc.Sprite.extend ({
             }
         }
     },
-//    onEnter:function () {
-//    if(sys.platform == "browser")
-//        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, 1, true);
-//    else
-//        cc.registerTargettedDelegate(1,true,this);
-//    this._super();
-//    },
-//    onExit:function () {
-//        if(sys.platform == "browser")
-//            cc.Director.getInstance().getTouchDispatcher().removeDelegate(this);
-//        else
-//            cc.unregisterTouchDelegate(this);
-//
-//        this._super();
-//    },
-//    onTouchBegan:function(event){
-//        //cc.log("on touch began", event);
-//        //cc.log("point: ", event.getLocation(), this.getPosition());
-//        var mouseP = event.getLocation();
-//        if(this.isInSelf(mouseP))
-//        {
-//            return true;
-//        }
-//        //if(event._point)
-//        return false;
-//    }
     isClicked:function(sender, point){
         //cc.log("click me.", sender);
 
@@ -397,14 +362,12 @@ var entity = cc.Sprite.extend ({
             //remove from screen
             this.inScene = false;
 
-            //加一分
+            //add one score.
             this.getParent().addEffect(1);
         }
         else{
-            //this.getParent().endGame();
-            //add放大特效，and gameover。
+            //gameover。
             this.getParent().unscheduleUpdate();
-            cc.log("scale and end game.");
             var scale = cc.ScaleTo.create(0.6, 5, 5);
             var rot = cc.RotateBy.create(0.6, 90, 90);
             this.runAction(rot);
@@ -415,7 +378,6 @@ var entity = cc.Sprite.extend ({
         }
     },
     endGame:function(){
-        cc.log("in here, endgame.");
         this.getParent().endGame();
     }
 });
@@ -439,7 +401,6 @@ var isOutOfSize = function(x, y){
 var getRand = function(n)
 {
     var temp = Math.random() * (n);
-    //cc.log(temp);
     temp = 0|(temp);
     return temp;
 }

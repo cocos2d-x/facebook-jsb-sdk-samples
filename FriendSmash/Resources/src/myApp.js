@@ -35,7 +35,9 @@ var app_namespace = "facesample";
 var app_url = "http://apps.facebook.com/' . $app_namespace . '/";
 var scope = "email,publish_actions";
 
-var stManager;
+var gLoginStatus = false;   //global login status.
+var stManager;      //global varibale, manage game state.
+var g_useFacebook = false;	//global varibale, is use facebook.
 
 var StManager = cc.Class.extend({
     stArr:[],
@@ -88,21 +90,16 @@ var MyLayer = cc.Layer.extend({
         this.setVisible(visble);
     },
     addBackground:function(){
-        var img1 = cc.Sprite.create(s_nonfriend_5);
-        this.addChild(img1);
-        img1.setPosition(cc.p(0,100));
-
         this.headLayer = new HeadLayer();
         this.headLayer.init();
         this.headLayer.setPosition(cc.p(10, winSize.height - 100));
         this.addChild(this.headLayer);
-
-        cc.log("will add menu");
+        
         this.menuLayer = new MenuLayer();
         this.menuLayer.init();
         this.addChild(this.menuLayer);
-        //cc.log(this.menuLayer.getPosition());
-
+        
+        //just for a global variable.
         _menuLayer = this;
     },
     disResult:function(display){
@@ -130,8 +127,8 @@ var gBombsUsed;
 var gTickGameInterval;
 var gTickSpeed;
 var gFriendID;
-var gScore;
-var gCoins;
+var gScore = 0;
+var gCoins = 0;
 var gContext;
 var gCanvasElement;
 var gSpawnTimer;
@@ -217,22 +214,11 @@ var PlayLayer = cc.Layer.extend({
 
 var BackLayer = cc.Layer.extend({
     init:function(){
+    	//just add a const background.
         var bkImg = cc.Sprite.create(s_frontscreen_background);
         this.addChild(bkImg);
         bkImg.setAnchorPoint(cc.p(0, 0));
         bkImg.setPosition(cc.p(0, -70));
-
-        //var testImg = new particle();
-        //testImg.init(1)
-        //var testImg = cc.Sprite.create(s_plus_1);
-        //this.addChild(testImg);
-        //testImg.setPosition(cc.p(100,150));
-
-        //
-//        var testLayer = new ResultLayer();
-//        testLayer.init();
-//        testLayer.setPosition(35, 170);
-//        this.addChild(testLayer);
     }
 });
 
@@ -244,6 +230,5 @@ var MyScene = cc.Scene.extend({
         this.addChild(back);
         stManager = new StManager();;
         stManager.init(this);
-
     }
 });

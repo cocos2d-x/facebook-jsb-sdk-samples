@@ -177,6 +177,13 @@
 		D454520A156E22B400887EB5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4545209156E22B400887EB5 /* libxml2.dylib */; };
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
+		ED041D9B17D092B8005E9523 /* js_bindings_loadUrlImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED041D9817D092B8005E9523 /* js_bindings_loadUrlImage.cpp */; };
+		ED041D9C17D092B8005E9523 /* LoadUrlImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED041D9917D092B8005E9523 /* LoadUrlImage.cpp */; };
+		ED813F5817CEE297009C68D9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED813F5717CEE297009C68D9 /* FacebookSDK.framework */; };
+		ED813F9417CEF04F009C68D9 /* js_bindings_facebook.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED813F6017CEE2F1009C68D9 /* js_bindings_facebook.cpp */; };
+		ED813F9517CEF074009C68D9 /* CCUIFaceBook.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED813F5B17CEE2F1009C68D9 /* CCUIFaceBook.mm */; };
+		ED813F9617CEF074009C68D9 /* CCUIKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED813F5D17CEE2F1009C68D9 /* CCUIKit.mm */; };
+		ED813F9717CEF074009C68D9 /* FacebookIosInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED813F5F17CEE2F1009C68D9 /* FacebookIosInterface.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -460,7 +467,6 @@
 		1A82F5F6169AC91400C4B13A /* LocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorage.h; sourceTree = "<group>"; };
 		1A82F5F7169AC91400C4B13A /* LocalStorageAndroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalStorageAndroid.cpp; sourceTree = "<group>"; };
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		1A96A4E8174A32C5008653A9 /* XMLHTTPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLHTTPHelper.h; sourceTree = "<group>"; };
 		1A96A4E9174A32C5008653A9 /* XMLHTTPRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XMLHTTPRequest.cpp; sourceTree = "<group>"; };
 		1A96A4EA174A32C5008653A9 /* XMLHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLHTTPRequest.h; sourceTree = "<group>"; };
 		1A96A4ED174A3369008653A9 /* HttpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpClient.cpp; sourceTree = "<group>"; };
@@ -507,6 +513,17 @@
 		D454520B156E22BD00887EB5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		ED041D9817D092B8005E9523 /* js_bindings_loadUrlImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = js_bindings_loadUrlImage.cpp; path = ../facebook/js_bindings_loadUrlImage.cpp; sourceTree = "<group>"; };
+		ED041D9917D092B8005E9523 /* LoadUrlImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoadUrlImage.cpp; path = ../facebook/LoadUrlImage.cpp; sourceTree = "<group>"; };
+		ED041D9A17D092B8005E9523 /* LoadUrlImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadUrlImage.h; path = ../facebook/LoadUrlImage.h; sourceTree = "<group>"; };
+		ED813F5717CEE297009C68D9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../Documents/FacebookSDK.framework; sourceTree = "<group>"; };
+		ED813F5A17CEE2F1009C68D9 /* CCUIFaceBook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCUIFaceBook.h; path = ../facebook/CCUIFaceBook.h; sourceTree = "<group>"; };
+		ED813F5B17CEE2F1009C68D9 /* CCUIFaceBook.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CCUIFaceBook.mm; path = ../facebook/CCUIFaceBook.mm; sourceTree = "<group>"; };
+		ED813F5C17CEE2F1009C68D9 /* CCUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCUIKit.h; path = ../facebook/CCUIKit.h; sourceTree = "<group>"; };
+		ED813F5D17CEE2F1009C68D9 /* CCUIKit.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CCUIKit.mm; path = ../facebook/CCUIKit.mm; sourceTree = "<group>"; };
+		ED813F5E17CEE2F1009C68D9 /* FacebookInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FacebookInterface.h; path = ../facebook/FacebookInterface.h; sourceTree = "<group>"; };
+		ED813F5F17CEE2F1009C68D9 /* FacebookIosInterface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FacebookIosInterface.cpp; path = ../facebook/FacebookIosInterface.cpp; sourceTree = "<group>"; };
+		ED813F6017CEE2F1009C68D9 /* js_bindings_facebook.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = js_bindings_facebook.cpp; path = ../facebook/js_bindings_facebook.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -528,6 +545,7 @@
 				A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */,
 				1A96A4F3174A3432008653A9 /* libcurl.a in Frameworks */,
 				1AB8701E175E07C6005D39BF /* libwebsockets.a in Frameworks */,
+				ED813F5817CEE297009C68D9 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,7 +619,6 @@
 				15A3D31A1682F0A0002FB0C5 /* ScriptingCore.cpp */,
 				15A3D31B1682F0A0002FB0C5 /* ScriptingCore.h */,
 				15A3D31C1682F0A0002FB0C5 /* spidermonkey_specifics.h */,
-				1A96A4E8174A32C5008653A9 /* XMLHTTPHelper.h */,
 				1A96A4E9174A32C5008653A9 /* XMLHTTPRequest.cpp */,
 				1A96A4EA174A32C5008653A9 /* XMLHTTPRequest.h */,
 			);
@@ -1072,6 +1089,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED813F5717CEE297009C68D9 /* FacebookSDK.framework */,
 				1A96A4F2174A3432008653A9 /* libcurl.a */,
 				1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */,
 				D454520B156E22BD00887EB5 /* libz.dylib */,
@@ -1107,9 +1125,28 @@
 			children = (
 				D4545215156E28EF00887EB5 /* AppDelegate.cpp */,
 				D4545216156E28EF00887EB5 /* AppDelegate.h */,
+				ED813F5917CEE2D0009C68D9 /* facebook */,
 			);
 			name = Classes;
 			path = ../Classes;
+			sourceTree = "<group>";
+		};
+		ED813F5917CEE2D0009C68D9 /* facebook */ = {
+			isa = PBXGroup;
+			children = (
+				ED041D9817D092B8005E9523 /* js_bindings_loadUrlImage.cpp */,
+				ED041D9917D092B8005E9523 /* LoadUrlImage.cpp */,
+				ED041D9A17D092B8005E9523 /* LoadUrlImage.h */,
+				ED813F5A17CEE2F1009C68D9 /* CCUIFaceBook.h */,
+				ED813F5B17CEE2F1009C68D9 /* CCUIFaceBook.mm */,
+				ED813F5C17CEE2F1009C68D9 /* CCUIKit.h */,
+				ED813F5D17CEE2F1009C68D9 /* CCUIKit.mm */,
+				ED813F5E17CEE2F1009C68D9 /* FacebookInterface.h */,
+				ED813F5F17CEE2F1009C68D9 /* FacebookIosInterface.cpp */,
+				ED813F6017CEE2F1009C68D9 /* js_bindings_facebook.cpp */,
+			);
+			name = facebook;
+			path = ../proj.ios;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1209,6 +1246,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED813F9517CEF074009C68D9 /* CCUIFaceBook.mm in Sources */,
+				ED813F9617CEF074009C68D9 /* CCUIKit.mm in Sources */,
+				ED813F9717CEF074009C68D9 /* FacebookIosInterface.cpp in Sources */,
+				ED813F9417CEF04F009C68D9 /* js_bindings_facebook.cpp in Sources */,
 				D45446D3156DE74F00887EB5 /* AppController.mm in Sources */,
 				D45446D4156DE74F00887EB5 /* main.m in Sources */,
 				D45446D5156DE74F00887EB5 /* RootViewController.mm in Sources */,
@@ -1345,6 +1386,8 @@
 				1AB87011175E0759005D39BF /* CCSkeletonAnimation.cpp in Sources */,
 				1AB87014175E0768005D39BF /* WebSocket.cpp in Sources */,
 				1AB87017175E0773005D39BF /* jsb_websocket.cpp in Sources */,
+				ED041D9B17D092B8005E9523 /* js_bindings_loadUrlImage.cpp in Sources */,
+				ED041D9C17D092B8005E9523 /* LoadUrlImage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,6 +1459,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Documents\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1465,6 +1512,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Documents\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
