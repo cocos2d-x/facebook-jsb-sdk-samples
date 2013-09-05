@@ -3,6 +3,7 @@
 #include "FacebookInterface.h"
 #include "platform/android/jni/JniHelper.h"
 #include <jni.h>
+#include <android/log.h>
 #include "ScriptingCore.h"
 
 const char* FBJavaClassName = "org/cocos2dx/facebookjsb/FacebookConnectPlugin";
@@ -39,6 +40,10 @@ extern "C"{
 		}
 	}
 };
+
+void FacebookInterface::callbackJs(int cbIndex, const char* params){
+	
+}
 
 void FacebookInterface::login(int cbIndex,const char* scope){
 	JniMethodInfo t;
