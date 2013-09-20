@@ -164,6 +164,10 @@
 		2A06E2D717E8D9AB009A589E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A06E2D417E8D9AB009A589E /* Default@2x.png */; };
 		2A06E2D917E8D9DC009A589E /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A06E2D817E8D9DB009A589E /* FacebookSDK.framework */; };
 		2A06E2DD17EBA9AA009A589E /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 2A06E20317E8D94F009A589E /* main.js */; };
+		2A44FD0317EC0CD00097D33C /* jsb_cocos2dx_auto_api.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A44FCFD17EC0CD00097D33C /* jsb_cocos2dx_auto_api.js */; };
+		2A44FD0417EC0CD00097D33C /* jsb_cocos2dx_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A44FCFE17EC0CD00097D33C /* jsb_cocos2dx_auto.cpp */; };
+		2A44FD0517EC0CD00097D33C /* jsb_cocos2dx_extension_auto_api.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A44FD0017EC0CD00097D33C /* jsb_cocos2dx_extension_auto_api.js */; };
+		2A44FD0617EC0CD00097D33C /* jsb_cocos2dx_extension_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A44FD0117EC0CD00097D33C /* jsb_cocos2dx_extension_auto.cpp */; };
 		2A72AD4D17EBB38D00C7D895 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 2A72AD4B17EBB38D00C7D895 /* res */; };
 		2A72AD4E17EBB38D00C7D895 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 2A72AD4C17EBB38D00C7D895 /* src */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
@@ -486,6 +490,12 @@
 		2A06E2D317E8D9AB009A589E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		2A06E2D417E8D9AB009A589E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		2A06E2D817E8D9DB009A589E /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../facebook-jsb-sdk/FB-IOS-JSB/FacebookSDK.framework"; sourceTree = "<group>"; };
+		2A44FCFD17EC0CD00097D33C /* jsb_cocos2dx_auto_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_cocos2dx_auto_api.js; sourceTree = "<group>"; };
+		2A44FCFE17EC0CD00097D33C /* jsb_cocos2dx_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_cocos2dx_auto.cpp; sourceTree = "<group>"; };
+		2A44FCFF17EC0CD00097D33C /* jsb_cocos2dx_auto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2dx_auto.hpp; sourceTree = "<group>"; };
+		2A44FD0017EC0CD00097D33C /* jsb_cocos2dx_extension_auto_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_cocos2dx_extension_auto_api.js; sourceTree = "<group>"; };
+		2A44FD0117EC0CD00097D33C /* jsb_cocos2dx_extension_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_cocos2dx_extension_auto.cpp; sourceTree = "<group>"; };
+		2A44FD0217EC0CD00097D33C /* jsb_cocos2dx_extension_auto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2dx_extension_auto.hpp; sourceTree = "<group>"; };
 		2A72AD4B17EBB38D00C7D895 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		2A72AD4C17EBB38D00C7D895 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 		A922753D1517C094001B78AA /* FriendSmash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendSmash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -593,6 +603,12 @@
 		15A3D2FE1682F0A0002FB0C5 /* generated */ = {
 			isa = PBXGroup;
 			children = (
+				2A44FCFD17EC0CD00097D33C /* jsb_cocos2dx_auto_api.js */,
+				2A44FCFE17EC0CD00097D33C /* jsb_cocos2dx_auto.cpp */,
+				2A44FCFF17EC0CD00097D33C /* jsb_cocos2dx_auto.hpp */,
+				2A44FD0017EC0CD00097D33C /* jsb_cocos2dx_extension_auto_api.js */,
+				2A44FD0117EC0CD00097D33C /* jsb_cocos2dx_extension_auto.cpp */,
+				2A44FD0217EC0CD00097D33C /* jsb_cocos2dx_extension_auto.hpp */,
 				15A3D3021682F0A0002FB0C5 /* README */,
 			);
 			path = generated;
@@ -1354,6 +1370,10 @@
 				2A06E20017E8D80D009A589E /* js_bindings_loadUrlImage.cpp in Sources */,
 				2A06E20117E8D80D009A589E /* LoadUrlImage.cpp in Sources */,
 				2A06E26C17E8D94F009A589E /* main.js in Sources */,
+				2A44FD0317EC0CD00097D33C /* jsb_cocos2dx_auto_api.js in Sources */,
+				2A44FD0417EC0CD00097D33C /* jsb_cocos2dx_auto.cpp in Sources */,
+				2A44FD0517EC0CD00097D33C /* jsb_cocos2dx_extension_auto_api.js in Sources */,
+				2A44FD0617EC0CD00097D33C /* jsb_cocos2dx_extension_auto.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
