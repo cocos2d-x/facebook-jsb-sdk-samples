@@ -1,0 +1,5 @@
+# Exclude certain files from git
+.DS_Store
+*~
+xcuserdata/*
+
