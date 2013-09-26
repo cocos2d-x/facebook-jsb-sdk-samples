@@ -35,7 +35,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.chukong.FriendSmash</string>
+	<string>org.cocos2dx.friendsmash</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -44,8 +44,21 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb151257628415336</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>FacebookAppID</key>
+	<string>151257628415336</string>
+	<key>FacebookDisplayName</key>
+	<string>Cocos2d-x Friend Smash</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
@@ -57,19 +70,6 @@
 		<key>opengles-1</key>
 		<true/>
 	</dict>
-	<key>FacebookAppID</key>
-	<string>151257628415336</string>
-	<key>FacebookDisplayName</key>
-	<string>Cocos2d-x Friend Smash</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb151257628415336</string>
-			</array>
-		</dict>
-	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>

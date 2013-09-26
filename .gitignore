@@ -127,3 +127,11 @@ xcuserdata
 # UNKNOWN: recommended by others, but I can't discover what these files are
 #
 # ...none. Everything is now explained.
+
+
+# Android build
+FriendSmash/proj.android/obj
+FriendSmash/proj.android/bin
+FriendSmash/proj.android/gen
+FriendSmash/proj.android/libs
+

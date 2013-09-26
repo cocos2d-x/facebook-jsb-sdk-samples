@@ -1,4 +1,4 @@
-APPNAME="FrendSamshDemo"
+APPNAME="FriendSmashDemo"
 
 # options
 
@@ -37,7 +37,6 @@ done
 set -e
 
 # paths
-NDK_ROOT=/cygdrive/d/soft/adt-bundle-windows-x86_64-20130522/ndk/android-ndk-r8e
 if [ -z "${NDK_ROOT+aaa}" ];then
 echo "please define NDK_ROOT"
 exit 1
@@ -45,10 +44,10 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # ... use paths relative to current directory
-COCOS2DX_ROOT="$DIR/../../.."
+COCOS2DX_ROOT="$DIR/../../cocos2d-x"
 APP_ROOT="$DIR/.."
 APP_ANDROID_ROOT="$DIR"
-BINDINGS_JS_ROOT="$APP_ROOT/../../scripting/javascript/bindings/js"
+BINDINGS_JS_ROOT="$APP_ROOT/../cocos2d-x/scripting/javascript/bindings/js"
 
 echo
 echo "Paths"

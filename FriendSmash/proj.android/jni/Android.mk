@@ -6,8 +6,13 @@ LOCAL_MODULE := cocos2djs_shared
 
 LOCAL_MODULE_FILENAME := libcocos2djs
 
-LOCAL_SRC_FILES := hellojavascript/main.cpp \
-                   ../../Classes/AppDelegate.cpp
+LOCAL_SRC_FILES := \
+hellojavascript/main.cpp \
+../../Classes/js_bindings_loadUrlImage.cpp \
+../../Classes/LoadUrlImage.cpp \
+../../../facebook-jsb-sdk/Class/js_bindings_facebook.cpp \
+../../../facebook-jsb-sdk/Class/FacebookAndroidInterface.cpp \
+../../Classes/AppDelegate.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
