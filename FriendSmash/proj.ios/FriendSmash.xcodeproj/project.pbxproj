@@ -170,6 +170,8 @@
 		2A44FD0617EC0CD00097D33C /* jsb_cocos2dx_extension_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A44FD0117EC0CD00097D33C /* jsb_cocos2dx_extension_auto.cpp */; };
 		2A72AD4D17EBB38D00C7D895 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 2A72AD4B17EBB38D00C7D895 /* res */; };
 		2A72AD4E17EBB38D00C7D895 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 2A72AD4C17EBB38D00C7D895 /* src */; };
+		2A919BF217F3F42C00E8A796 /* Icon@2x copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A919BF117F3F42C00E8A796 /* Icon@2x copy.png */; };
+		2A919BF417F3F47F00E8A796 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A919BF317F3F47F00E8A796 /* Icon.png */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
 		A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275431517C094001B78AA /* OpenGLES.framework */; };
 		A92275461517C094001B78AA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275451517C094001B78AA /* OpenAL.framework */; };
@@ -498,6 +500,8 @@
 		2A44FD0217EC0CD00097D33C /* jsb_cocos2dx_extension_auto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2dx_extension_auto.hpp; sourceTree = "<group>"; };
 		2A72AD4B17EBB38D00C7D895 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		2A72AD4C17EBB38D00C7D895 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+		2A919BF117F3F42C00E8A796 /* Icon@2x copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x copy.png"; sourceTree = "<group>"; };
+		2A919BF317F3F47F00E8A796 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		A922753D1517C094001B78AA /* FriendSmash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendSmash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A92275431517C094001B78AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1060,6 +1064,8 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				2A919BF317F3F47F00E8A796 /* Icon.png */,
+				2A919BF117F3F42C00E8A796 /* Icon@2x copy.png */,
 				15A3D2EC1682F076002FB0C5 /* cocos2dx.xcodeproj */,
 				15A3D2F81682F0A0002FB0C5 /* bindings */,
 				15A3D3311682F0B5002FB0C5 /* chipmunk */,
@@ -1222,6 +1228,8 @@
 				2A06E2D717E8D9AB009A589E /* Default@2x.png in Resources */,
 				2A72AD4D17EBB38D00C7D895 /* res in Resources */,
 				2A72AD4E17EBB38D00C7D895 /* src in Resources */,
+				2A919BF217F3F42C00E8A796 /* Icon@2x copy.png in Resources */,
+				2A919BF417F3F47F00E8A796 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
