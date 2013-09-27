@@ -224,16 +224,9 @@ var HeadLayer = cc.Layer.extend({
             cc.log(response.error);
             return;
         }
-        var name = response.first_name;
-        this.setName(name);
-        //get user's img and set.
-        FB.api('/me/picture', {"width":"90","height":"90"}, this.myImgCallback.bind(this));
-    },
-    myImgCallback:function(response){
-        if(response){
-            var url = response.data.url;
-            LoadUrlImage.addImageAsync(url, this.loadImg.bind(this));
-        }
+		var id = response.id;
+        LoadUrlImage.addImageAsync("http://graph.facebook.com/"+id+"/picture?width=90&height=90", this.loadImg.bind(this));
+
     },
     loadImg:function(response){
     	if(response){

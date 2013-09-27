@@ -4,3 +4,6 @@
 [submodule "facebook-jsb-sdk"]
 	path = facebook-jsb-sdk
 	url = https://github.com/cocos2d-x/facebook-jsb-sdk.git
+[submodule "cocos2d-html5"]
+	path = cocos2d-html5
+	url = https://github.com/cocos2d/cocos2d-html5.git

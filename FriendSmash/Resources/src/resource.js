@@ -89,7 +89,7 @@ var s_login1 = "res/login1.png";
 var s_logout0 = "res/logout0.png";
 var s_logout1 = "res/logout1.png";
 
-var g_ressources = [
+var g_resources = [
     //image
     {src:s_Arial_fnt},
     {src:s_Arial_png},

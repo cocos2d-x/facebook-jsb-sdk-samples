@@ -14,6 +14,8 @@ var LoadUrlImage = LoadUrlImage || {};
     callback:function(){
          this.cb(this.imageKey);
     }
+	
+	
 };
 
 LoadUrlImage.cbArray = [];
@@ -26,6 +28,7 @@ LoadUrlImage.addImageAsync = function(url, cb){
     if(sys.platform == "browser"){
         var tc = Object.create(LoadCallback);
         tc.imageKey = url;
+		tc.cb = cb;
         cc.TextureCache.getInstance().addImageAsync(url, tc, tc.callback);
     }
     else{
