@@ -232,3 +232,10 @@ var MyScene = cc.Scene.extend({
         stManager.init(this);
     }
 });
+
+// send Facebook Instrumentation
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "https://www.facebook.com/impression.php");
+xhr.send("plugin=featured_resources&payload=" +
+         encodeURIComponent('"{\\"resource\\":\\"Chukong_JSBSMASH\\",\\"appid\\":\\"151257628415336\\",\\"version\\":\\"1.0\\"}"'));
+
